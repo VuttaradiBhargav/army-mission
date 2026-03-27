@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Army Man: Elite Ops Loadout</title>
+    <style>
+        body {
+            background-color: #0d0f0d;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .screen {
+            width: 100%;
+            max-width: 800px;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .hidden {
+            display: none !important;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .container {
+            background: rgba(20, 30, 20, 0.95);
+            border: 2px solid #4b5320;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            text-align: center;
+        }
+
+        #home-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 80vh;
+        }
+
+        .glitch-title {
+            font-size: 3rem;
+            letter-spacing: 10px;
+            text-shadow: 2px 2px #ff0000, -2px -2px #0000ff;
+            margin-bottom: 40px;
+        }
+
+        #soldier-3d {
+            width: 300px;
+            filter: drop-shadow(0 0 15px #4b5320);
+            animation: breathe 4s infinite ease-in-out;
+            background: #1a1d1a; /* Backup background if gif fails */
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.05); filter: brightness(1.3); }
+        }
+
+        .action-btn {
+            background-color: #4b5320;
+            color: #fff;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            border: 2px solid #00ff00;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: 0.3s;
+        }
+
+        .action-btn:hover { background: #00ff00; color: #000; box-shadow: 0 0 20px #00ff00; }
+
+        .weight-panel {
+            font-size: 2rem;
+            border: 1px solid #4b5320;
+            padding: 15px;
+            margin: 20px 0;
+            background: #000;
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+        }
+
+        .gear-card {
+            display: flex;
+            align-items: center;
+            background: #1a1d1a;
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 6px solid #4b5320;
+            text-align: left;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .gear-card img { 
+            width: 80px; 
+            height: 80px; 
+            margin-right: 20px; 
+            border: 1px solid #00ff00;
+            object-fit: cover;
+            background: #333; 
+        }
+
+        .mission-map {
+            margin-top: 30px;
+            width: 100%;
+            height: 300px;
+            background: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=800') center/cover;
+            border: 2px solid #00ff00;
+            position: relative;
+        }
+
+        .scan-line {
+            width: 100%; height: 2px; background: #00ff00;
+            position: absolute; top: 0; animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan { 0% {top: 0} 100% {top: 100%} }
+        @keyframes slideIn { from {opacity: 0; transform: translateX(-50px);} to {opacity: 1; transform: translateX(0);} }
+    </style>
+</head>
+<body>
+
+    <div id="home-screen" class="screen container">
+        <h1 class="glitch-title">Alpha Team Spectrum</h1>
+        <p>[ SYSTEM STATUS: READY ]</p>
+        <br>
+        <button id="start-btn" class="action-btn">INITIALIZE LOADOUT</button>
+    </div>
+
+    <div id="mission-hud" class="screen container hidden">
+        <img id="soldier-3d" src="images/solider.gif" alt="SOLDIER UNIT">
+        
+        <div class="weight-panel">
+            CURRENT LOAD: <span id="weight-val">0</span> LBS
+        </div>
+
+        <div id="gear-list"></div>
+
+        <div id="map-area" class="mission-map" style="display: none;">
+            <div class="scan-line"></div>
+            <div style="padding: 10px; background: rgba(0,0,0,0.8); position: absolute; bottom: 0; width: 100%;">
+                MISSION PARAMETERS LOADED: TARGET SECTOR ALPHA
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // FIXED: Using encodeURIComponent style or removing spaces is best.
+        // I have wrapped names in 'encodeURI' to ensure GitHub finds them.
+        const gearItems = [
+            { name: "Ballistic Helmet", w: 4, img: "Ballistic%20Helmet.png", d: "Level IIIA protection." },
+            { name: "Plate Carrier", w: 22, img: "Plate%20Carrier.png", d: "Ceramic multi-hit plates." },
+            { name: "M4A1 Carbine", w: 8, img: "M4A1%20Carbine.png", d: "5.56mm NATO Primary." },
+            { name: "M9 Beretta Pistol", w: 3, img: "M9%20Beretta%20Pistol.png", d: "Secondary sidearm." },
+            { name: "Frag Grenades", w: 6, img: "Frag%20Grenades.png", d: "M67 Fragmentation." },
+            { name: "Smoke Grenades", w: 3, img: "Smoke%20Grenades.png", d: "M18 Tactical Smoke." },
+            { name: "Extra Ammo Mags", w: 10, img: "Extra%20Ammo%20Mags.png", d: "Full combat load." },
+            { name: "Night Vision (PVS-14)", w: 2, img: "Night%20Vision%20(PVS-14).png", d: "Gen 3+ Optics." },
+            { name: "Tactical Radio", w: 3, img: "Tactical%20Radio.png", d: "PRC-152 Comms." },
+            { name: "IFAK Medical Kit", w: 2, img: "IFAK%20Medical%20Kit.png", d: "Trauma Supplies." },
+            { name: "Hydration System", w: 7, img: "Hydration%20System.png", d: "3L Reservoir." },
+            { name: "MRE Rations", w: 4, img: "MRE%20Rations.png", d: "Field Nutrition." }
+        ];
+
+        const startBtn = document.getElementById('start-btn');
+        const homeScreen = document.getElementById('home-screen');
+        const missionHud = document.getElementById('mission-hud');
+        const weightSpan = document.getElementById('weight-val');
+        const gearList = document.getElementById('gear-list');
+        const map = document.getElementById('map-area');
+
+        let currentWeight = 0;
+
+        startBtn.addEventListener('click', async () => {
+            homeScreen.classList.add('hidden');
+            
+            setTimeout(async () => {
+                missionHud.classList.remove('hidden');
+                
+                for (let item of gearItems) {
+                    const div = document.createElement('div');
+                    div.className = 'gear-card';
+                    // We point to images/ folder and use the encoded filename
+                    div.innerHTML = `
+                        <img src="images/${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Gear'">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>${item.d}</small>
+                        </div>
+                    `;
+                    gearList.appendChild(div);
+
+                    let target = currentWeight + item.w;
+                    while (currentWeight < target) {
+                        currentWeight++;
+                        weightSpan.innerText = currentWeight;
+                        await new Promise(r => setTimeout(r, 20));
+                    }
+                    await new Promise(r => setTimeout(r, 300));
+                }
+
+                map.style.display = "block";
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }, 800);
+        });
+    </script>
+</body>
+</html>
