@@ -137,7 +137,6 @@
             display: block;
             font-size: 1.1rem;
             margin-bottom: 5px;
-            text-transform: capitalize;
         }
 
         .gear-info small {
@@ -215,8 +214,9 @@
 
     <!-- MISSION HUD -->
     <div id="mission-hud" class="screen container hidden">
-        <!-- FIXED: soldier.gif -->
-        <img id="soldier-3d" src="images/soldier.gif" alt="SOLDIER UNIT" onerror="this.src='https://via.placeholder.com/280x280?text=Soldier+GIF+Missing';" />
+        <!-- Using your exact file name: solider.gif -->
+        <img id="soldier-3d" src="solider.gif" alt="SOLDIER UNIT"
+             onerror="this.src='solider.png';" />
 
         <div class="weight-panel">
             CURRENT LOAD: <span id="weight-val">0</span> LBS
@@ -233,21 +233,20 @@
     </div>
 
     <script>
-        // IMPORTANT:
-        // Make sure these filenames match EXACTLY with your GitHub images folder.
+        // Using your EXACT filenames with spaces encoded as %20
         const gearItems = [
-            { name: "Ballistic Helmet", w: 4, img: "ballistic-helmet.png", d: "Level IIIA protection." },
-            { name: "Plate Carrier", w: 22, img: "plate-carrier.png", d: "Ceramic multi-hit plates." },
-            { name: "M4A1 Carbine", w: 8, img: "m4a1-carbine.png", d: "5.56mm NATO Primary." },
-            { name: "M9 Beretta Pistol", w: 3, img: "m9-beretta-pistol.png", d: "Secondary sidearm." },
-            { name: "Frag Grenades", w: 6, img: "frag-grenades.png", d: "M67 Fragmentation." },
-            { name: "Smoke Grenades", w: 3, img: "smoke-grenades.png", d: "M18 Tactical Smoke." },
-            { name: "Extra Ammo Mags", w: 10, img: "extra-ammo-mags.png", d: "Full combat load." },
-            { name: "Night Vision (PVS-14)", w: 2, img: "night-vision-pvs14.png", d: "Gen 3+ Optics." },
-            { name: "Tactical Radio", w: 3, img: "tactical-radio.png", d: "PRC-152 Comms." },
-            { name: "IFAK Medical Kit", w: 2, img: "ifak-medical-kit.png", d: "Trauma Supplies." },
-            { name: "Hydration System", w: 7, img: "hydration-system.png", d: "3L Reservoir." },
-            { name: "MRE Rations", w: 4, img: "mre-rations.png", d: "Field Nutrition." }
+            { name: "Ballistic Helmet", w: 4, img: "Ballistic%20Helmet.png", d: "Level IIIA protection." },
+            { name: "Plate Carrier", w: 22, img: "Plate%20Carrier.png", d: "Ceramic multi-hit plates." },
+            { name: "M4A1 Carbine", w: 8, img: "M4A1%20Carbine.png", d: "5.56mm NATO Primary." },
+            { name: "M9 Beretta Pistol", w: 3, img: "M9%20Beretta%20Pistol.png", d: "Secondary sidearm." },
+            { name: "Frag Grenades", w: 6, img: "Frag%20Grenades.png", d: "M67 Fragmentation." },
+            { name: "Smoke Grenades", w: 3, img: "Smoke%20Grenades.png", d: "M18 Tactical Smoke." },
+            { name: "Extra Ammo Mags", w: 10, img: "Extra%20Ammo%20Mags.png", d: "Full combat load." },
+            { name: "Night Vision (PVS-14)", w: 2, img: "Night%20Vision%20(PVS-14).png", d: "Gen 3+ Optics." },
+            { name: "Tactical Radio", w: 3, img: "Tactical%20Radio.png", d: "PRC-152 Comms." },
+            { name: "IFAK Medical Kit", w: 2, img: "IFAK%20Medical%20Kit.png", d: "Trauma Supplies." },
+            { name: "Hydration System", w: 7, img: "Hydration%20System.png", d: "3L Reservoir." },
+            { name: "MRE Rations", w: 4, img: "MRE%20Rations.png", d: "Field Nutrition." }
         ];
 
         const startBtn = document.getElementById('start-btn');
@@ -270,7 +269,7 @@
                     div.className = 'gear-card';
 
                     div.innerHTML = `
-                        <img src="images/${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Gear';">
+                        <img src="${item.img}" alt="${item.name}" onerror="this.src='3dsolider.png';">
                         <div class="gear-info">
                             <strong>${item.name}</strong>
                             <small>${item.d}</small>
