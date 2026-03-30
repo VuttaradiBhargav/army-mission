@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Army Man: Elite Ops Loadout</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            margin: 0;
             background-color: #0d0f0d;
             color: #00ff00;
             font-family: 'Courier New', Courier, monospace;
@@ -18,7 +23,7 @@
 
         .screen {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
@@ -34,6 +39,7 @@
             padding: 30px;
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
             text-align: center;
+            border-radius: 10px;
         }
 
         #home-screen {
@@ -45,39 +51,55 @@
 
         .glitch-title {
             font-size: 3rem;
-            letter-spacing: 10px;
+            letter-spacing: 8px;
             text-shadow: 2px 2px #ff0000, -2px -2px #0000ff;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
+            word-break: break-word;
         }
 
         #soldier-3d {
-            width: 300px;
+            width: 280px;
+            max-width: 100%;
             filter: drop-shadow(0 0 15px #4b5320);
             animation: breathe 4s infinite ease-in-out;
-            background: #1a1d1a; /* Backup background if gif fails */
+            background: #1a1d1a;
+            border: 2px solid #4b5320;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
 
         @keyframes breathe {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.05); filter: brightness(1.3); }
+            0%, 100% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% {
+                transform: scale(1.05);
+                filter: brightness(1.2);
+            }
         }
 
         .action-btn {
             background-color: #4b5320;
             color: #fff;
-            padding: 20px 60px;
-            font-size: 1.5rem;
+            padding: 18px 40px;
+            font-size: 1.2rem;
             border: 2px solid #00ff00;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             transition: 0.3s;
+            border-radius: 8px;
         }
 
-        .action-btn:hover { background: #00ff00; color: #000; box-shadow: 0 0 20px #00ff00; }
+        .action-btn:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 20px #00ff00;
+        }
 
         .weight-panel {
-            font-size: 2rem;
+            font-size: 1.8rem;
             border: 1px solid #4b5320;
             padding: 15px;
             margin: 20px 0;
@@ -85,6 +107,7 @@
             position: sticky;
             top: 10px;
             z-index: 10;
+            border-radius: 8px;
         }
 
         .gear-card {
@@ -96,47 +119,105 @@
             border-left: 6px solid #4b5320;
             text-align: left;
             animation: slideIn 0.5s ease forwards;
+            border-radius: 8px;
+            gap: 15px;
         }
 
-        .gear-card img { 
-            width: 80px; 
-            height: 80px; 
-            margin-right: 20px; 
+        .gear-card img {
+            width: 80px;
+            height: 80px;
             border: 1px solid #00ff00;
             object-fit: cover;
-            background: #333; 
+            background: #333;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .gear-info strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            text-transform: capitalize;
+        }
+
+        .gear-info small {
+            color: #b7ffb7;
+            line-height: 1.4;
         }
 
         .mission-map {
             margin-top: 30px;
             width: 100%;
             height: 300px;
-            background: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=800') center/cover;
+            background: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1200') center/cover no-repeat;
             border: 2px solid #00ff00;
             position: relative;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .scan-line {
-            width: 100%; height: 2px; background: #00ff00;
-            position: absolute; top: 0; animation: scan 3s linear infinite;
+            width: 100%;
+            height: 2px;
+            background: #00ff00;
+            position: absolute;
+            top: 0;
+            animation: scan 3s linear infinite;
+            box-shadow: 0 0 10px #00ff00;
         }
 
-        @keyframes scan { 0% {top: 0} 100% {top: 100%} }
-        @keyframes slideIn { from {opacity: 0; transform: translateX(-50px);} to {opacity: 1; transform: translateX(0);} }
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .glitch-title {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            .gear-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .gear-info {
+                text-align: center;
+            }
+
+            .weight-panel {
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <!-- HOME SCREEN -->
     <div id="home-screen" class="screen container">
         <h1 class="glitch-title">Alpha Team Spectrum</h1>
         <p>[ SYSTEM STATUS: READY ]</p>
-        <br>
+        <br />
         <button id="start-btn" class="action-btn">INITIALIZE LOADOUT</button>
     </div>
 
+    <!-- MISSION HUD -->
     <div id="mission-hud" class="screen container hidden">
-        <img id="soldier-3d" src="images/solider.gif" alt="SOLDIER UNIT">
-        
+        <!-- FIXED: soldier.gif -->
+        <img id="soldier-3d" src="images/soldier.gif" alt="SOLDIER UNIT" onerror="this.src='https://via.placeholder.com/280x280?text=Soldier+GIF+Missing';" />
+
         <div class="weight-panel">
             CURRENT LOAD: <span id="weight-val">0</span> LBS
         </div>
@@ -152,21 +233,21 @@
     </div>
 
     <script>
-        // FIXED: Using encodeURIComponent style or removing spaces is best.
-        // I have wrapped names in 'encodeURI' to ensure GitHub finds them.
+        // IMPORTANT:
+        // Make sure these filenames match EXACTLY with your GitHub images folder.
         const gearItems = [
-            { name: "ballistic Helmet", w: 4, img: "ballistic%20Helmet.png", d: "Level IIIA protection." },
-            { name: "plate Carrier", w: 22, img: "plate%20Carrier.png", d: "Ceramic multi-hit plates." },
-            { name: "m4A1 Carbine", w: 8, img: "m4A1%20Carbine.png", d: "5.56mm NATO Primary." },
-            { name: "m9 Beretta Pistol", w: 3, img: "m9%20Beretta%20Pistol.png", d: "Secondary sidearm." },
-            { name: "frag Grenades", w: 6, img: "frag%20Grenades.png", d: "M67 Fragmentation." },
-            { name: "smoke Grenades", w: 3, img: "smoke%20Grenades.png", d: "M18 Tactical Smoke." },
-            { name: "extra Ammo Mags", w: 10, img: "extra%20Ammo%20Mags.png", d: "Full combat load." },
-            { name: "night Vision (PVS-14)", w: 2, img: "night%20Vision%20(PVS-14).png", d: "Gen 3+ Optics." },
-            { name: "tactical Radio", w: 3, img: "tactical%20Radio.png", d: "PRC-152 Comms." },
-            { name: "iFAK Medical Kit", w: 2, img: "iFAK%20Medical%20Kit.png", d: "Trauma Supplies." },
-            { name: "hydration System", w: 7, img: "hydration%20System.png", d: "3L Reservoir." },
-            { name: "mRE Rations", w: 4, img: "mRE%20Rations.png", d: "Field Nutrition." }
+            { name: "Ballistic Helmet", w: 4, img: "ballistic-helmet.png", d: "Level IIIA protection." },
+            { name: "Plate Carrier", w: 22, img: "plate-carrier.png", d: "Ceramic multi-hit plates." },
+            { name: "M4A1 Carbine", w: 8, img: "m4a1-carbine.png", d: "5.56mm NATO Primary." },
+            { name: "M9 Beretta Pistol", w: 3, img: "m9-beretta-pistol.png", d: "Secondary sidearm." },
+            { name: "Frag Grenades", w: 6, img: "frag-grenades.png", d: "M67 Fragmentation." },
+            { name: "Smoke Grenades", w: 3, img: "smoke-grenades.png", d: "M18 Tactical Smoke." },
+            { name: "Extra Ammo Mags", w: 10, img: "extra-ammo-mags.png", d: "Full combat load." },
+            { name: "Night Vision (PVS-14)", w: 2, img: "night-vision-pvs14.png", d: "Gen 3+ Optics." },
+            { name: "Tactical Radio", w: 3, img: "tactical-radio.png", d: "PRC-152 Comms." },
+            { name: "IFAK Medical Kit", w: 2, img: "ifak-medical-kit.png", d: "Trauma Supplies." },
+            { name: "Hydration System", w: 7, img: "hydration-system.png", d: "3L Reservoir." },
+            { name: "MRE Rations", w: 4, img: "mre-rations.png", d: "Field Nutrition." }
         ];
 
         const startBtn = document.getElementById('start-btn');
@@ -180,34 +261,40 @@
 
         startBtn.addEventListener('click', async () => {
             homeScreen.classList.add('hidden');
-            
+
             setTimeout(async () => {
                 missionHud.classList.remove('hidden');
-                
+
                 for (let item of gearItems) {
                     const div = document.createElement('div');
                     div.className = 'gear-card';
-                    // We point to images/ folder and use the encoded filename
+
                     div.innerHTML = `
-                        <img src="images/${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Gear'">
-                        <div>
-                            <strong>${item.name}</strong><br>
+                        <img src="images/${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Gear';">
+                        <div class="gear-info">
+                            <strong>${item.name}</strong>
                             <small>${item.d}</small>
                         </div>
                     `;
+
                     gearList.appendChild(div);
 
                     let target = currentWeight + item.w;
+
                     while (currentWeight < target) {
                         currentWeight++;
                         weightSpan.innerText = currentWeight;
-                        await new Promise(r => setTimeout(r, 20));
+                        await new Promise(resolve => setTimeout(resolve, 20));
                     }
-                    await new Promise(r => setTimeout(r, 300));
+
+                    await new Promise(resolve => setTimeout(resolve, 300));
                 }
 
                 map.style.display = "block";
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
             }, 800);
         });
     </script>
